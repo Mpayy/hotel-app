@@ -167,4 +167,11 @@ class RegistrationController extends Controller
 
         return redirect()->route('registration.index')->with('success', 'Data berhasil dihapus dan kamar kembali kosong.');
     }
+
+    public function print($id)
+    {
+        $registration = Registration::with(['guest', 'room', 'user'])->findOrFail($id);
+
+        return view('registration.print', compact('registration'));
+    }
 }

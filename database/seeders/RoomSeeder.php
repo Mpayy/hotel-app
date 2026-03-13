@@ -16,18 +16,21 @@ class RoomSeeder extends Seeder
         Room::create([
             'room_number' => '0601',
             'room_type' => 'Standard',
+            'price' => 750000,
             'status' => 'available'
         ]);
 
         Room::create([
             'room_number' => '0602',
             'room_type' => 'Standard',
+            'price' => 750000,
             'status' => 'available'
         ]);
 
         Room::create([
             'room_number' => '0701',
             'room_type' => 'Deluxe',
+            'price' => 1200000,
             'status' => 'available'
         ]);
     }

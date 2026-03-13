@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Registration extends Model
 {
     protected $guarded = ['id'];
-    
+
+    protected $casts = [
+        'arrival_time' => 'datetime',
+        'departure_date' => 'datetime',
+    ];
+
     protected $fillable = [
         'user_id',
         'guest_id',

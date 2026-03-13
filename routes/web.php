@@ -21,3 +21,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::resource('registration', RegistrationController::class);
+Route::get('/registration/{id}/print', [RegistrationController::class, 'print'])->name('registration.print');

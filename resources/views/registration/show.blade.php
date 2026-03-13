@@ -11,10 +11,7 @@
             <div class="bg-white p-8 border border-gray-400 shadow-xl text-black">
 
                 <div class="text-center mb-6">
-                    <div
-                        class="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-2 flex items-center justify-center text-blue-800 font-bold border-2 border-blue-500">
-                        PPKD
-                    </div>
+                    <x-application-logo class="w-20 h-20 mx-auto mb-2 object-contain" />
                     <h1
                         class="font-bold text-xl uppercase tracking-wider rounded-full mx-auto mb-2 flex items-center justify-center">
                         PPKD Hotel</h1>
@@ -136,6 +133,20 @@
                     </tr>
                 </table>
 
+<div class="flex justify-between items-center mb-4">
+    <a href="{{ route('registration.index') }}" class="text-blue-600 hover:underline">
+        &larr; Kembali
+    </a>
+
+    <a href="{{ route('registration.print', $registration->id) }}" target="_blank"
+        class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg>
+        Cetak Formulir
+    </a>
+</div>
             </div>
         </div>
     </div>

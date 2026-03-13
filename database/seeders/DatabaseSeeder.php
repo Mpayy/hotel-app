@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            RoomSeeder::class,
             UserSeeder::class,
+            RoomSeeder::class,
         ]);
     }
 }
