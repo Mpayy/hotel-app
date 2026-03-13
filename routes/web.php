@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,6 @@ require __DIR__.'/auth.php';
 
 Route::resource('registration', RegistrationController::class);
 Route::get('/registration/{id}/print', [RegistrationController::class, 'print'])->name('registration.print');
+
+Route::get('/payments/create/{registration_id}', [PaymentController::class, 'create'])->name('payments.create');
+Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');

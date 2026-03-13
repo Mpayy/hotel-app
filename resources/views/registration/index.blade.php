@@ -24,6 +24,7 @@
                                 <th class="border p-2">Time & Date of Arrival</th>
                                 <th class="border p-2">Departure Date</th>
                                 <th class="border p-2">Officer</th>
+                                <th class="border p-2">Payment Status</th>
                                 <th class="border p-2">Action</th>
                             </tr>
                         </thead>
@@ -36,6 +37,13 @@
                                     <td class="border p-2">{{ $reg->arrival_time }}</td>
                                     <td class="border p-2">{{ $reg->departure_date }}</td>
                                     <td class="border p-2">{{ $reg->user->name ?? '-' }}</td>
+                                    <td class="border p-2">
+                                        @if($reg->payment_status == 'Paid')
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Lunas</span>
+                                        @else
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Belum Bayar</span>
+                                        @endif
+                                    </td>
                                     <td class="border p-2 flex gap-2">
                                         <a href="{{ route('registration.show', $reg->id) }}"
                                             class="bg-blue-500 text-black px-3 py-1 rounded text-sm hover:bg-blue-600">Detail</a>
@@ -48,6 +56,10 @@
                                             <button type="submit"
                                                 class="bg-red-500 text-black px-3 py-1 rounded text-sm">Hapus</button>
                                         </form>
+                                            <a href="{{ route('payments.create', $reg->id) }}"
+                                                class="bg-green-600 text-black px-3 py-1 rounded text-sm hover:bg-green-700">
+                                                Bayar
+                                            </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -22,6 +22,7 @@ class Registration extends Model
         'departure_date',
         'safety_box_number',
         'receptionist_name',
+        'payment_status',
     ];
     
     public function user()
@@ -39,4 +40,8 @@ class Registration extends Model
         return $this->belongsTo(Room::class , 'room_id', 'id');
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }
