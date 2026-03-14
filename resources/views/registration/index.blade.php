@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Daftar Tamu Hotel') }}
+            {{ $title }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             <div class="mb-4">
                 <a href="{{ route('registration.create') }}"
                     class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-                    + Registrasi Tamu Baru
+                    + New Guest Registration
                 </a>
             </div>
 
@@ -32,34 +32,41 @@
                             @foreach ($registrations as $reg)
                                 <tr>
                                     <td class="border p-2">
-                                        {{ $reg->room->room_number ?? '-' }}({{ $reg->room->room_type ?? '-' }})</td>
+                                        {{ $reg->room->room_number ?? '-' }}({{ $reg->room->room_type ?? '-' }})
+                                    </td>
                                     <td class="border p-2">{{ $reg->guest->name ?? '-' }}</td>
                                     <td class="border p-2">{{ $reg->arrival_time }}</td>
                                     <td class="border p-2">{{ $reg->departure_date }}</td>
                                     <td class="border p-2">{{ $reg->user->name ?? '-' }}</td>
                                     <td class="border p-2">
                                         @if($reg->payment_status == 'Paid')
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Lunas</span>
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-md">Paid</span>
                                         @else
-                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Belum Bayar</span>
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-md">Unpaid</span>
                                         @endif
                                     </td>
-                                    <td class="border p-2 flex gap-2">
+                                    <td class="border p-4 flex gap-2">
                                         <a href="{{ route('registration.show', $reg->id) }}"
-                                            class="bg-blue-500 text-black px-3 py-1 rounded text-sm hover:bg-blue-600">Detail</a>
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Detail</a>
                                         <a href="{{ route('registration.edit', $reg->id) }}"
-                                            class="bg-yellow-500 text-black px-3 py-1 rounded text-sm">Edit</a>
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Edit</a>
                                         <form action="{{ route('registration.destroy', $reg->id) }}" method="POST"
                                             onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
-                                                class="bg-red-500 text-black px-3 py-1 rounded text-sm">Hapus</button>
+                                            {{-- <button type="submit"
+                                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                                Delete</button> --}}
+                                            <x-danger-button>
+                                                Delete
+                                            </x-danger-button>
                                         </form>
-                                            <a href="{{ route('payments.create', $reg->id) }}"
-                                                class="bg-green-600 text-black px-3 py-1 rounded text-sm hover:bg-green-700">
-                                                Bayar
-                                            </a>
+                                        <a href="{{ route('payments.create', $reg->id) }}"
+                                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Paid
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -93,8 +93,12 @@
                 </div>
                 <div class="flex">
                     <span class="font-medium w-32 relative colon-separator">Booking No.</span>
-                    <span class="flex-1 pl-2 font-mono text-gray-600">REQ-{{ str_pad($registration->id, 5, '0',
-                        STR_PAD_LEFT) }}</span>
+                    <span class="flex-1 pl-2 font-mono text-gray-600">REQ-{{ str_pad(
+    $registration->id,
+    5,
+    '0',
+    STR_PAD_LEFT
+) }}</span>
                 </div>
                 <div class="flex">
                     <span class="font-medium w-32 relative colon-separator">Book By</span>
@@ -151,16 +155,16 @@
             <div class="flex items-center">
                 <span class="font-medium w-48 relative colon-separator">Total Night</span>
                 @php
-                $checkIn = \Carbon\Carbon::parse($registration->arrival_time);
-                $checkOut = \Carbon\Carbon::parse($registration->departure_date);
-                $nights = ceil($registration->arrival_time->diffInDays($registration->departure_date, false));
+                    $checkIn = \Carbon\Carbon::parse($registration->arrival_time);
+                    $checkOut = \Carbon\Carbon::parse($registration->departure_date);
+                    $nights = ceil($registration->arrival_time->diffInDays($registration->departure_date, false));
                 @endphp
                 <span class="flex-1 pl-3">{{ $nights }} Malam (Nights)</span>
             </div>
             <div class="flex items-center">
                 <span class="font-medium w-48 relative colon-separator">Room/Unit Type</span>
                 <span class="flex-1 pl-3">Kamar {{ $registration->room->room_number }} ({{
-                    $registration->room->room_type }})</span>
+    $registration->room->room_type }})</span>
             </div>
             <div class="flex items-center">
                 <span class="font-medium w-48 relative colon-separator">Person Pax</span>
@@ -168,7 +172,8 @@
             </div>
             <div class="flex items-center">
                 <span class="font-medium w-48 relative colon-separator text-red-700">Room Rate Net</span>
-                <span class="flex-1 pl-3 font-bold text-red-700">Rp {{ number_format(($registration->room->price ?? 0) * $nights, 0, ',', '.') }} / Malam</span>
+                <span class="flex-1 pl-3 font-bold text-red-700">Rp
+                    {{ number_format(($registration->room->price ?? 0) * $nights, 0, ',', '.') }} / Malam</span>
             </div>
         </div>
 
@@ -236,7 +241,7 @@
 
     <script>
         // Otomatis membuka jendela print saat halaman selesai dimuat (Opsional)
-        window.onload = function() { window.print(); }
+        window.onload = function () { window.print(); }
     </script>
 </body>
 

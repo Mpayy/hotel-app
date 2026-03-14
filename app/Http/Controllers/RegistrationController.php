@@ -18,9 +18,10 @@ class RegistrationController extends Controller
         // Mengambil data registrasi beserta relasinya (kamar, tamu, dan user/petugas)
         // with() digunakan agar query lebih cepat (Eager Loading)
         // latest() untuk mengurutkan dari yang terbaru
+        $title = "Registration Data";
         $registrations = Registration::with(['room', 'guest', 'user'])->latest()->get();
 
-        return view('registration.index', compact('registrations'));
+        return view('registration.index', compact('registrations', 'title'));
     }
 
     /**
@@ -44,7 +45,7 @@ class RegistrationController extends Controller
             'room_id' => 'required',
             'arrival_time' => 'required|date',
             'departure_date' => 'required|date',
-            'no_of_person' => 'required|integer',
+            'no_of_person' => 'required|integer|min:1|max:4',
             'name' => 'required|string|max:255',
             'id_card_number' => 'required|string',
             'phone' => 'required|string',
@@ -86,7 +87,7 @@ class RegistrationController extends Controller
     public function show(string $id)
     {
         // Ambil 1 data registrasi lengkap dengan relasinya
-        $registration = \App\Models\Registration::with(['guest', 'room', 'user'])->findOrFail($id);
+        $registration = Registration::with(['guest', 'room', 'user'])->findOrFail($id);
 
         // Kirim ke halaman show.blade.php
         return view('registration.show', compact('registration'));
@@ -115,8 +116,8 @@ class RegistrationController extends Controller
         $registration = Registration::findOrFail($id);
 
         // Simpan ID kamar lama sebelum diupdate
-    $oldRoomId = $registration->room_id;
-    $newRoomId = $request->room_id;
+        $oldRoomId = $registration->room_id;
+        $newRoomId = $request->room_id;
 
         // Update data di tabel pendaftaran
         $registration->update([
