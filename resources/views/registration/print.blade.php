@@ -94,11 +94,11 @@
                 <div class="flex">
                     <span class="font-medium w-32 relative colon-separator">Booking No.</span>
                     <span class="flex-1 pl-2 font-mono text-gray-600">REQ-{{ str_pad(
-    $registration->id,
-    5,
-    '0',
-    STR_PAD_LEFT
-) }}</span>
+                        $registration->id,
+                        5,
+                        '0',
+                        STR_PAD_LEFT
+                    ) }}</span>
                 </div>
                 <div class="flex">
                     <span class="font-medium w-32 relative colon-separator">Book By</span>

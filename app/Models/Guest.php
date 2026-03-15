@@ -23,6 +23,7 @@ class Guest extends Model
 
     public function registrations()
     {
+        // One-to-Many
         return $this->hasMany(Registration::class , 'guest_id', 'id');
     }
 }

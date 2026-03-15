@@ -16,6 +16,7 @@ class Room extends Model
 
     public function registrations()
     {
+        // One-to-Many
         return $this->hasMany(Registration::class , 'room_id', 'id');
     }
 }

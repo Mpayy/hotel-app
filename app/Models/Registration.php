@@ -27,21 +27,25 @@ class Registration extends Model
     
     public function user()
     {
+        // Many-to-One
         return $this->belongsTo(User::class , 'user_id', 'id');
     }
 
     public function guest()
     {
-        return $this->belongsTo(Guest::class , 'guest_id', 'id');
+        // Many-to-One
+        return $this->belongsTo(Guest::class, 'guest_id', 'id');
     }
 
     public function room()
     {
-        return $this->belongsTo(Room::class , 'room_id', 'id');
+        // Many-to-One
+        return $this->belongsTo(Room::class, 'room_id', 'id');
     }
 
     public function payment()
     {
-        return $this->hasOne(Payment::class);
+        // One-to-One
+        return $this->hasOne(Payment::class, 'registration_id', 'id');
     }
 }

@@ -46,4 +46,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function registrations()
+    {
+        // One-to-Many
+        return $this->hasMany(Registration::class, 'user_id', 'id');
+    }
 }

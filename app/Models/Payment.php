@@ -18,6 +18,7 @@ class Payment extends Model
 
     public function registration()
     {
+        // One-to-One
         return $this->belongsTo(Registration::class, 'registration_id', 'id');
     }
 }
