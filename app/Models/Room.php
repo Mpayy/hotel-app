@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    public const STATUS_AVAILABLE = 'available';
+    public const STATUS_OCCUPIED = 'occupied';
+    public const STATUS_DIRTY = 'dirty';
+
     protected $guarded = ['id'];
     
-    protected $fillable = [
-        'room_number',
-        'room_type',
-        'status',
-    ];
-
     public function registrations()
     {
         // One-to-Many

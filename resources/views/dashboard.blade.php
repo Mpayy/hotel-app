@@ -1,20 +1,3 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -39,86 +22,46 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <p class="text-sm font-medium text-gray-500">Total Kamar</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalRooms }}</p>
+            <div class="stats bg-white w-full">
+                <div class="stat">
+                    <div class="stat-title text-neutral">Total Kamar</div>
+                    <div class="stat-value text-neutral">{{ $totalRooms }}</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <p class="text-sm font-medium text-gray-500">Kamar Tersedia</p>
-                    <p class="text-3xl font-bold text-green-600 mt-2">{{ $availableRooms }}</p>
+                <div class="stat">
+                    <div class="stat-title text-neutral">Kamar Tersedia</div>
+                    <div class="stat-value text-neutral">{{ $availableRooms }}</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <p class="text-sm font-medium text-gray-500">Belum Dibayar (Unpaid)</p>
-                    <p class="text-3xl font-bold text-red-600 mt-2">{{ $unpaidRegistrations }}</p>
+                <div class="stat">
+                    <div class="stat-title text-neutral">Kamar Terisi</div>
+                    <div class="stat-value text-neutral">{{ $occupiedRooms }}</div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <p class="text-sm font-medium text-gray-500">Total Pendapatan</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-2">Rp {{ number_format($totalRevenue, 0, ',', '.') }}
-                    </p>
+                <div class="stat">
+                    <div class="stat-title text-neutral">Kamar Kotor</div>
+                    <div class="stat-value text-neutral">{{ $dirtyRooms }}</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-title text-neutral">Belum Dibayar (Unpaid)</div>
+                    <div class="stat-value text-neutral">{{ $unpaidRegistrations }}</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-title text-neutral">Total Pendapatan</div>
+                    <div class="stat-value text-neutral">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</div>
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-100">
+            <div class="bg-white overflow-x-auto w-full">
                 <div class="p-6 text-gray-900">
                     <h3 class="font-bold text-lg mb-4 text-gray-800">Registrasi Terbaru</h3>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Tamu</th>
-                                    <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Kamar</th>
-                                    <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Check In</th>
-                                    <th class="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                @forelse($recentRegistrations as $reg)
-                                    <tr class="hover:bg-gray-50 transition">
-                                        <td class="py-3 px-4 text-sm text-gray-900 font-medium">
-                                            {{ $reg->guest->name ?? 'N/A' }}
-                                        </td>
-                                        <td class="py-3 px-4 text-sm text-gray-600">{{ $reg->room->room_number ?? '-' }}
-                                            ({{ $reg->room->room_type ?? '-' }})</td>
-                                        <td class="py-3 px-4 text-sm text-gray-600">
-                                            {{ \Carbon\Carbon::parse($reg->arrival_time)->format('d M Y') }}
-                                        </td>
-                                        <td class="py-3 px-4">
-                                            @if($reg->payment_status == 'Paid')
-                                                <span
-                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                    Lunas
-                                                </span>
-                                            @else
-                                                <span
-                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                    Belum Bayar
-                                                </span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4" class="py-8 text-center text-sm text-gray-500 italic">
-                                            Belum ada data registrasi terbaru.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                    @include('registration.partials.latest-table')
 
-                    <div class="mt-4 text-right">
-                        <a href="{{ route('registration.index') }}"
-                            class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
+                    <div class="bg-white mt-4 text-right">
+                        <a href="{{ route('registration.index') }}" class="btn btn-neutral btn-outline text-white">
                             Lihat Semua Data &rarr;
                         </a>
                     </div>
